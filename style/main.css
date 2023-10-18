@@ -1,0 +1,19 @@
+.ot, .do {
+    position: absolute;
+    left: 0;
+    font-size: 14px;
+    transform: translateX(-50%);
+}
+.ot {
+    top: 0;
+}
+.do {
+    bottom: 0;
+    transform: translate(-50%, 20%);
+}
+.bottomText {
+    display: inline-block;
+    transform: translateY(30%);
+    font-size: 14px;
+    font-weight: 800;
+}
