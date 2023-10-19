@@ -12,15 +12,16 @@ document.querySelector('button').addEventListener('click', ()=>{
     start();
 });
 function start() {
-    let mainFormula = 'Wc * Wa * Math.exp(-Wa*x-Wc*Math.exp(-Wa*x))';
+    let mainFormula = 'Wc * Wa * Math.exp(-Wa*x-Wc*Math.exp(-Wa*x))'.replace(/Math.exp/g, 'sp.exp').replace(/Wa/g, 'a').replace(/Wc/g, 'c');
     function We(x) {
         return Wc * Wa * Math.exp(-Wa*x-Wc*Math.exp(-Wa*x));
     }
     let WeAjax = '';
+    console.log(mainFormula);
     $.ajax({
         url: './vendor/integral.php',         /* Куда пойдет запрос */
         method: 'post',             /* Метод передачи (post или get) */
-        data: {text: mainFormula.replace(/Math/g, 'sp')},     /* Параметры передаваемые в запросе. */
+        data: {text: JSON.stringify(mainFormula), a: Wa, c: Wc},     /* Параметры передаваемые в запросе. */
         success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
             console.log(data);            /* В переменной data содержится ответ от index.php. */
             WeAjax = data.replace(/exp/g, 'Math.exp');
@@ -75,7 +76,7 @@ function start() {
             var data = [];
             for (var x = start; x < end; x += 0.1) {
                 var yValue = formula(x);
-                console.log(formula(x));
+                // console.log(formula(x));
                 data.push({ x: x, y: yValue });
             }
             return data;
@@ -87,12 +88,8 @@ function start() {
             graphFormuls[0].innerHTML = WeAjax.replace(/Math./g, '');
             graphFormuls[1].innerHTML = WeAjax.replace(/x/g, 'y').replace(/eyp/g, 'exp').replace(/Math./g, '');
             graphFormuls[2].innerHTML = We;
+
         
-        function differentiate(f, h = 0.0001) {
-            return function(x) {
-            return (f(x + h) - f(x)) / h;
-            };
-        }
         chart1.series.values[0].data = data1;
         chart2.series.values[0].data = data2;
         chart3.series.values[0].data = data3;
