@@ -39,10 +39,21 @@ function start() {
     var chart2 = createChart("chartdiv2", "Y", "X: [bold]{y}[/]", 'F(Y)');
     var chart3 = createChart("chartdiv3", "Y", "X: [bold]{y}[/]", 'W(Y)');
     
-
+    let mainFormula = 'Wc * Wa * Math.exp(-Wa*x-Wc*Math.exp(-Wa*x))';
     function We(x) {
         return Wc * Wa * Math.exp(-Wa*x-Wc*Math.exp(-Wa*x));
     }
+    let WeAjax = '';
+    $.ajax({
+        url: './vendor/integral.php',         /* Куда пойдет запрос */
+        method: 'post',             /* Метод передачи (post или get) */
+        data: {text: mainFormula.replace(/Math/g, 'sp')},     /* Параметры передаваемые в запросе. */
+        success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
+            console.log(data);            /* В переменной data содержится ответ от index.php. */
+            WeAjax = data.replace(/exp/g, 'Math.exp');
+            console.log(WeAjax);
+        }
+    });
     // Вычисление интегралов
     const resultMath = integrate(intX => intX * We(intX), 0, 100);
     const resultMath2 = integrate(intX => intX * intX * We(intX), 0, 100);
