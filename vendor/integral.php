@@ -7,5 +7,5 @@ $command = "$pythonPath $pythonScriptPath $arg1 2>&1";
 
 $output = exec($command);
 
-echo "Результат выполнения Python скрипта: $output";
+echo "$output";
 ?>

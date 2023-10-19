@@ -43,8 +43,18 @@
             </div>
         </h4>
 
+        <h4>Строим графики:</h4>
+        <h3>
+            F<span class="bottomText">ξ</span>(x)=∫[W<span class="bottomText">ξ</span>(x)dx]=
+            <span class="graphFormul"></span>
+        </h3>
         <div id="chartdiv1" style="width: 100%; height: 400px;"></div>
+        <h3>
+            F<span class="bottomText">ξ</span>(y)=∫[W<span class="bottomText">ξ</span>(y)dx]=
+            <span class="graphFormul"></span>
+        </h3>
         <div id="chartdiv2" style="width: 100%; height: 400px;"></div>
+        <h3 class="graphFormul"></h3>
         <div id="chartdiv3" style="width: 100%; height: 400px;"></div>
     </div>
     
