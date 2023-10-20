@@ -7,8 +7,8 @@ let Wc = 1,
 start();
 document.querySelector('button').addEventListener('click', ()=>{
     const inputs = document.querySelectorAll('input');
-    Wa = inputs[0].value;
-    Wc = inputs[1].value;
+    Wa = inputs[0].value == '' ? 1 : Number(inputs[0].value);
+    Wc = inputs[1].value== '' ? 1 : Number(inputs[1].value);
     start();
 });
 function start() {
@@ -16,24 +16,50 @@ function start() {
     function We(x) {
         return Wc * Wa * Math.exp(-Wa*x-Wc*Math.exp(-Wa*x));
     }
-    let WeAjax = '';
+    let WeAjax = '',
+        dif = '';
     console.log(mainFormula);
     $.ajax({
         url: './vendor/integral.php',         /* Куда пойдет запрос */
         method: 'post',             /* Метод передачи (post или get) */
         data: {text: JSON.stringify(mainFormula), a: Wa, c: Wc},     /* Параметры передаваемые в запросе. */
         success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
-            console.log(data);            /* В переменной data содержится ответ от index.php. */
+            // console.log(data);            /* В переменной data содержится ответ от index.php. */
             WeAjax = data.replace(/exp/g, 'Math.exp');
             console.log(WeAjax);
-            secondStart();
+            $.ajax({
+                url: './vendor/dif.php',         /* Куда пойдет запрос */
+                method: 'post',             /* Метод передачи (post или get) */
+                data: {text: JSON.stringify(WeAjax.replace(/Math.exp/g, 'sp.exp')), a: Wa, c: Wc},     /* Параметры передаваемые в запросе. */
+                success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
+                    console.log(data);            /* В переменной data содержится ответ от index.php. */
+                    dif = data.replace(/exp/g, 'Math.exp');
+                    console.log(dif);
+                    secondStart();
+                }
+            });
         }
     });
 
     function secondStart() {
+
+        // Размеры графиков
+        const inputElementsStart = document.querySelectorAll('.graphSize_start'),
+            inputValuesStart = Array.from(inputElementsStart).map(input => input.value == '' ? -10 : Number(input.value)),
+            inputElementsStop = document.querySelectorAll('.graphSize_stop'),
+            inputValuesStop = Array.from(inputElementsStop).map(input => input.value == '' ? 10 : Number(input.value))
+        console.log(inputValuesStart);
+        console.log(inputValuesStop);
+
+        // Формулы для расчета графиков
         function WeAjaxFunction(x) {
             return eval(WeAjax);
         }
+        function difEvalFunc(x) {
+            return eval(dif);
+        }
+
+
         // Создаем функцию для создания графика с единичными интервалами
         function createChart(containerId, seriesName, tooltipText, nameTitleY='Y', needTextX=0) {
             var chart = am4core.create(containerId, am4charts.XYChart);
@@ -72,7 +98,7 @@ function start() {
         document.querySelector('.first_3').innerHTML = parseFloat(resultMath3.toFixed(3));
         
         // Генерация данных для графиков y
-        function generateyData(Wc, Wa, start, end, formula) {
+        function generateyData(start, end, formula) {
             var data = [];
             for (var x = start; x < end; x += 0.1) {
                 var yValue = formula(x);
@@ -81,13 +107,14 @@ function start() {
             }
             return data;
         }
-        var data1 = generateyData(Wc, Wa, -10, 10, (x) => WeAjaxFunction(x));
-        var data2 = generateyData(Wc, Wa, -10, 10, (x) => WeAjaxFunction(x));
-        var data3 = generateyData(Wc, Wa, -10, 10, (x) => We(x));
+        var data1 = generateyData(inputValuesStart[0], inputValuesStop[0], (x) => WeAjaxFunction(x));
+        var data2 = generateyData(inputValuesStart[1], inputValuesStop[1], (x) => WeAjaxFunction(x));
+        var data3 = generateyData(inputValuesStart[2], inputValuesStop[2], (x) => difEvalFunc(x));
         let graphFormuls = document.querySelectorAll('.graphFormul');
             graphFormuls[0].innerHTML = WeAjax.replace(/Math./g, '');
             graphFormuls[1].innerHTML = WeAjax.replace(/x/g, 'y').replace(/eyp/g, 'exp').replace(/Math./g, '');
-            graphFormuls[2].innerHTML = We;
+            document.querySelector('.graphFormul_2').innerHTML = graphFormuls[1].innerHTML;
+            graphFormuls[2].innerHTML = dif.replace(/x/g, 'y').replace(/eyp/g, 'exp').replace(/Math./g, '');
 
         
         chart1.series.values[0].data = data1;
