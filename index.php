@@ -8,12 +8,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style/bootstrap.min.css">
-    <link rel="stylesheet" href="/style/main.css">
+    <link rel="stylesheet" href="/style/main.min.css">
 </head>
 <body>
     <div class="container">
         <div class="defaultGap mb-4">
-            <input type="text" placeholder="Введите a1">
+            <input type="text" placeholder="Введите a">
             <input type="text" placeholder="Введите c">
             <br>
             <input type="text" class="graphSize_start" placeholder="Диапазон первого графика от">
@@ -57,18 +57,30 @@
 
         <h4 class="mt-5">2.	Символьные выражения и построить график:</h4>
         <h3 class="mt-4 mb-4">
-            F<span class="bottomText">ξ</span>(x)=
+            2.1 Определим функцию распределения случайной величины ξ, используя формулу:<br>
+            F<span class="bottomText">ξ</span>(x) =
             <span class="graphFormul"></span>
+            <br>
+            <br>
+            Построим график полученной функции распределения:
         </h3>
         <div id="chartdiv1" class="graph" style="width: 100%; height: 400px;"></div>
         <h3 class="mt-4 mb-4">
-            F<span class="bottomText">ξ</span>(y)=∫[W<span class="bottomText">ξ</span>(y)dx]=
-            <span class="graphFormul"></span>
+            2.2 Определим функцию распределения случайной величины ƞ, используя формулу::<br>
+            F<span class="bottomText">ξ</span>(y)=∫[W<span class="bottomText">ξ</span>(y)dx] =
+            <span class="graphFormul"></span> 
+            <br>
+            <br>
+            Построим график полученной функции распределения:
         </h3>
         <div id="chartdiv2" class="graph" style="width: 100%; height: 400px;"></div>
         <h3 class="mt-4 mb-4">
-            W(y)=d/dy(<span class="graphFormul_2"></span>)
+            2.3 Определим плотность вероятности случайной величины ƞ, используя формулу:<br>
+            W(y)=d/dy(<span class="graphFormul_2"></span>) = 
             <span class="graphFormul"></span>
+            <br>
+            <br>
+            Построим график полученной плотности вероятности:
         </h3>
         <div id="chartdiv3" class="graph" style="width: 100%; height: 400px;"></div>
 
@@ -105,9 +117,9 @@
     </div>
     <script src="./jquery.js"></script>
     <script src="./myMath.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-    <script src="./main.js"></script>
+    <script src="./js/charts/core.js"></script>
+    <script src="./js/charts/charts.js"></script>
+    <script src="./js/charts/animated.js"></script>
+    <script src="./main.min.js"></script>
 </body>
 </html>
