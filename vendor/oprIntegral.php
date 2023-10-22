@@ -1,6 +1,6 @@
 <?php
 $pythonPath = "E:\\MAMP\\htdocs\\my_project\\mathLib\\venv\\Scripts\\python.exe";
-$pythonScriptPath = 'E:\\MAMP\\htdocs\\my_project\\mathLib\\integral.py';
+$pythonScriptPath = 'E:\\MAMP\\htdocs\\my_project\\mathLib\\oprIntegral.py';
 $arg1 = $_POST['text'];
 $arg2 = $_POST['a'];
 $arg3 = $_POST['c'];

@@ -29,7 +29,7 @@
         </div>
         
 
-        <h3>1-й пункт</h3>
+        <h3>1.	Символьные безынтегральные выражения и численные значения:</h3>
         <h4 class="mt-3">
             1.1. Вычислим математическое ожидание случайной величины ξ, используя формулу:
             <div class="mt-1">
@@ -55,9 +55,9 @@
             </div>
         </h4>
 
-        <h4 class="mt-5">Строим графики:</h4>
-        <h3 class="mt-2 mb-4">
-            F<span class="bottomText">ξ</span>(x)=∫[W<span class="bottomText">ξ</span>(x)dx]=
+        <h4 class="mt-5">2.	Символьные выражения и построить график:</h4>
+        <h3 class="mt-4 mb-4">
+            F<span class="bottomText">ξ</span>(x)=
             <span class="graphFormul"></span>
         </h3>
         <div id="chartdiv1" class="graph" style="width: 100%; height: 400px;"></div>
@@ -71,8 +71,38 @@
             <span class="graphFormul"></span>
         </h3>
         <div id="chartdiv3" class="graph" style="width: 100%; height: 400px;"></div>
+
+        <!-- 3-й пункт -->
+        <h3 class="mt-4">3.	Символьные выражения и численные значения:</h3>
+        <h4 class="mt-2 mb-4">
+            Математическое ожидание случайной величины ƞ: <br>
+            m<span class="bottomText">ƞ</span>=
+            <span class="position-relative">&#0160;∫<span class="ot">0</span><span class="do">∞</span></span>
+            [y*W<span class="bottomText">ƞ</span>(y)dy]=
+            <span class="thirdhFormul"></span>
+        </h4>
+        <h4 class="mt-2 mb-4">
+            Средний квадрат случайной величины ƞ: <br>
+            σ<span class="bottomText">ƞ</span>=
+            <span class="position-relative">&#0160;∫<span class="ot">0</span><span class="do">∞</span></span>
+            [<span class="position-relative">y<span class="square">2</span></span>
+            *W<span class="bottomText">ƞ</span>(y)dy]=
+            <span class="thirdhFormul"></span>
+        </h4>
+        <h4 class="mt-2 mb-4">
+            Дисперсия случайной величины ƞ: <br>
+            σ<span class="square">2</span><span class="bottomText">ƞ</span>=
+            <span class="position-relative">&#0160;∫<span class="ot">0</span><span class="do">∞</span></span>
+            [<span class="position-relative">(y-m<span class="bottomText">ƞ</span>)<span class="square">2</span></span>
+            *W<span class="bottomText">ƞ</span>(y)dy]=
+            <span class="thirdhFormul"></span>
+        </h4>
     </div>
-    
+
+
+    <div class="loading active visible">
+        <img class="loading__image" src="./img/loading.gif">
+    </div>
     <script src="./jquery.js"></script>
     <script src="./myMath.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>

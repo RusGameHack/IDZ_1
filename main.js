@@ -3,9 +3,24 @@ let Wc = 1,
     Wa = 1,
     xMath = 0,
     gX = 'a * x**2',
-    a = 1;
+    a = 1,
+    loadingBlock = document.querySelector('.loading');
+function addLoading(loadingBlock) {
+    loadingBlock.classList.add('active');
+    setTimeout(() => {
+        loadingBlock.classList.add('visible');
+    }, 10);
+}
+function closeLoading(loadingBlock) {
+    loadingBlock.classList.remove('visible');
+    setTimeout(() => {
+        loadingBlock.classList.remove('active');
+    }, 300);
+}
+
 start();
 document.querySelector('button').addEventListener('click', ()=>{
+    addLoading(loadingBlock);
     const inputs = document.querySelectorAll('input');
     Wa = inputs[0].value == '' ? 1 : Number(inputs[0].value);
     Wc = inputs[1].value== '' ? 1 : Number(inputs[1].value);
@@ -92,7 +107,7 @@ function start() {
         const resultMath2 = integrate(intX => intX * intX * We(intX), 0, 100);
         const resultMath3 = integrate(intX => (intX - resultMath) * (intX - resultMath) * We(intX), 0, 100);
 
-        // Вывод результатов
+        // Вывод результатов ПЕРВЫЙ ПУНКТ
         document.querySelector('.first_1').innerHTML = parseFloat(resultMath.toFixed(3));
         document.querySelector('.first_2').innerHTML = parseFloat(resultMath2.toFixed(3));
         document.querySelector('.first_3').innerHTML = parseFloat(resultMath3.toFixed(3));
@@ -125,6 +140,18 @@ function start() {
         chart1.legend = new am4charts.Legend();
         chart2.legend = new am4charts.Legend();
         chart3.legend = new am4charts.Legend();
+
+
+        // ТРЕТИЙ ПУНКТ
+        let thirdGraphs = document.querySelectorAll('.thirdhFormul'),
+            m_η = integrate(intX => intX * difEvalFunc(intX), 0, 100).toFixed(3),
+            σ_η = integrate(intX => intX * intX * difEvalFunc(intX), 0, 100).toFixed(3),
+            σσ_η = integrate(intX => (intX - m_η) * (intX - m_η) * difEvalFunc(intX), 0, 100).toFixed(3);
+        thirdGraphs[0].innerHTML = parseFloat(m_η);
+        thirdGraphs[1].innerHTML = parseFloat(σ_η);
+        thirdGraphs[2].innerHTML = parseFloat(σσ_η);
+
+        closeLoading(loadingBlock);
     }
     
 }
